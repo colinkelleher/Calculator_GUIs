@@ -11,9 +11,9 @@ from tkinter import *
 class Calculator:
     def __init__(self, frame):
         self.frame = frame
-        frame.title("Python Calculator")
+        frame.title("Colin's Python Calculator")
 
-        self.screen = Text(frame, state='disabled', width=50, height=3, background="yellow", foreground="blue")
+        self.screen = Text(frame, state='disabled', width=50, height=3, background = 'grey')
 
         self.screen.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
         self.equation = ''
