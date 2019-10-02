@@ -1,3 +1,10 @@
+'''
+SIMPLE CALCULATOR
+
+ADDITION | MULTIPLICATION | SUBTRACTION | DIVISION
+'''
+
+
 from tkinter import *
 
 
@@ -6,26 +13,20 @@ class Calculator:
         self.frame = frame
         frame.title("Python Calculator")
 
-        # create screen widget
-        self.screen = Text(frame, state='disabled', width=30, height=3, background="yellow", foreground="blue")
+        self.screen = Text(frame, state='disabled', width=50, height=3, background="yellow", foreground="blue")
 
-        # position screen in window
         self.screen.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
+        self.equation = ''
         self.screen.configure(state='normal')
 
-        # initialize screen value as empty
-        self.equation = ''
-
-        # \u232B - Unicode 'ERASE TO THE LEFT
-        # \u00F7 - Unicode ' Division Sign)
         b1 = self.createButton(7)
         b2 = self.createButton(8)
         b3 = self.createButton(9)
-        b4 = self.createButton(u"\u232B", None)
+        b4 = self.createButton("C", None)
         b5 = self.createButton(4)
         b6 = self.createButton(5)
         b7 = self.createButton(6)
-        b8 = self.createButton(u"\u00F7")
+        b8 = self.createButton("/")
         b9 = self.createButton(1)
         b10 = self.createButton(2)
         b11 = self.createButton(3)
@@ -36,11 +37,42 @@ class Calculator:
         b16 = self.createButton('-')
         b17 = self.createButton('=', None, 40)
 
-        # buttons stored in list
         buttons = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
 
-    def createButton():
-            return
+
+        count = 0
+        for row in range(1, 5):
+            for column in range(4):
+                buttons[count].grid(row=row, column=column)
+                count += 1
+        buttons[16].grid(row=5, column=0, columnspan=4)
+
+    def createButton(self, val, write=True, width=7):
+        return Button(self.frame, text=val, command=lambda: self.click(val, write), width=width)
+
+    def click(self, text, write):
+        if write == None:
+            if text == '=' and self.equation:
+
+                print(self.equation)
+                answer = str(eval(self.equation))
+                self.clearScreen()
+                self.insert_screen(answer)
+            elif text == "C":
+                self.clearScreen()
+        else:
+            self.insert_screen(text)
+
+    def clearScreen(self):
+        self.equation = ''
+        self.screen.configure(state='normal')
+        self.screen.delete('1.0', END)
+
+    def insert_screen(self, value):
+        self.screen.configure(state='normal')
+        self.screen.insert(END, value)
+        self.equation += str(value)
+        self.screen.configure(state='disabled')
 
 root = Tk()
 my_gui = Calculator(root)
