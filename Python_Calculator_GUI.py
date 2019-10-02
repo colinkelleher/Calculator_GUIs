@@ -22,11 +22,11 @@ class Calculator:
         b1 = self.createButton(7)
         b2 = self.createButton(8)
         b3 = self.createButton(9)
-        b4 = self.createButton("C", None)
+        b4 = self.createButton(u"\u232B", None)
         b5 = self.createButton(4)
         b6 = self.createButton(5)
         b7 = self.createButton(6)
-        b8 = self.createButton("/")
+        b8 = self.createButton(u"\u00F7")
         b9 = self.createButton(1)
         b10 = self.createButton(2)
         b11 = self.createButton(3)
@@ -53,12 +53,12 @@ class Calculator:
     def click(self, text, write):
         if write == None:
             if text == '=' and self.equation:
-
+                self.equation = re.sub(u"\u00F7", '/', self.equation)
                 print(self.equation)
                 answer = str(eval(self.equation))
                 self.clearScreen()
                 self.insert_screen(answer)
-            elif text == "C":
+            elif text == u"\u232B":
                 self.clearScreen()
         else:
             self.insert_screen(text)
